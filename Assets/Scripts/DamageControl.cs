@@ -40,6 +40,7 @@ public class DamageControl : MonoBehaviour
         {
             PlayerUP_Current -= 1;
             PlayerUP_Used = true;
+            PlayerHP_Current = 100;
         }
         else if (chose == "D")
         {
@@ -59,9 +60,9 @@ public class DamageControl : MonoBehaviour
         PlayerUP_Current = 2;
         PlayerUP_Used = false;
 
-        EHP.fillAmount = EnemyHP_Current;
-        EI.fillAmount = EnemyInner_Current;
-        PHP.fillAmount = PlayerHP_Current;
+        EHP.fillAmount = EnemyHP_Current/100.0f;
+        EI.fillAmount = EnemyInner_Current/100.0f;
+        PHP.fillAmount = PlayerHP_Current/100.0f;
 
         Inner1 = Resources.Load<Sprite>("Inner1");
         Inner2 = Resources.Load<Sprite>("Inner2");
@@ -71,8 +72,11 @@ public class DamageControl : MonoBehaviour
     void Update()
     {
         // 更新血量
+        EHP.fillAmount = EnemyHP_Current / 100.0f;
+        EI.fillAmount = EnemyInner_Current / 100.0f;
+        PHP.fillAmount = PlayerHP_Current / 100.0f;
         // 敵人血量計算
-        if(EnemyHP_Current <= 0.0f && Input.GetKey(KeyCode.Space))
+        if (EnemyHP_Current <= 0.0f && Input.GetKey(KeyCode.Space))
         {
             if(EnemyUP_Current > 0)
             {
