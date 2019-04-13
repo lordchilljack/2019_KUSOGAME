@@ -10,7 +10,7 @@ public class Battle : MonoBehaviour
     public float PlayerHP_Current;
 
     public float AttackTimer = 0.0f;
-    public float AttackLimtTime = 3.0f;
+    public float AttackLimtTime = 1.0f;
     public int SneakHit_Count = 0;
     public int SneakHit_Limit = 2;
     public int PlayerAct=3;
@@ -21,7 +21,7 @@ public class Battle : MonoBehaviour
         // 上>中>下>上 
         // 上 0 中 1 下 2
         //
-        if (playercmd == enemyattack) {
+        if (playercmd == enemyattack && playercmd!=3 && enemyattack!=3) {
             EnemyInner_Current+=25;
         }
         switch (playercmd) {
@@ -129,10 +129,19 @@ public class Battle : MonoBehaviour
                 BaatlePhase = 2;
                 break;
             case 2:
-                RPSfunction(PlayerAct,EnemyAct);
-                PlayerAct = 3;
-                EnemyAct = 3;
-                BaatlePhase = 0;
+                if (AttackTimer < AttackLimtTime)
+                {
+                    AttackTimer += Time.deltaTime;
+                    break;
+                }
+                else
+                {
+                    RPSfunction(PlayerAct, EnemyAct);
+                    PlayerAct = 3;
+                    EnemyAct = 3;
+                    BaatlePhase = 0;
+                    AttackTimer = 0;
+                }
                 break;
             default:
                 break;

@@ -1345,6 +1345,7 @@ GameObject:
   - component: {fileID: 1486955914}
   - component: {fileID: 1486955912}
   - component: {fileID: 1486955911}
+  - component: {fileID: 1486955913}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1413,6 +1414,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1486955913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486955910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ece33c96fb1bd48af12f72064a33cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaatlePhase: 0
+  EnemyHP_Current: 100
+  EnemyInner_Current: 0
+  PlayerHP_Current: 100
+  AttackTimer: 0
+  AttackLimtTime: 3
+  SneakHit_Count: 0
+  SneakHit_Limit: 2
+  PlayerAct: 3
+  EnemyAct: 3
 --- !u!4 &1486955914
 Transform:
   m_ObjectHideFlags: 0
@@ -1875,6 +1898,7 @@ GameObject:
   - component: {fileID: 1825236530}
   - component: {fileID: 1825236529}
   - component: {fileID: 1825236532}
+  - component: {fileID: 1825236533}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1974,6 +1998,18 @@ MonoBehaviour:
   PUP: {fileID: 2000526527}
   Revive: {fileID: 725516385}
   Dead: {fileID: 1614131636}
+--- !u!114 &1825236533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825236528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a464f385e4bab642a30b4165ad24275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1932130444
 GameObject:
   m_ObjectHideFlags: 0
