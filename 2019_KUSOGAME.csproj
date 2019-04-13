@@ -635,6 +635,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Battle.cs" />
+    <Compile Include="Assets\Scripts\DamageControl.cs" />
     <Compile Include="Assets\Scripts\MainGame.cs" />
   </ItemGroup>
   <ItemGroup>

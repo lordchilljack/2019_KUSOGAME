@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DamageControl : MonoBehaviour
 {
     public bool PlayerAliveOrNot;
+    public bool PlayerisDead;
     public float EnemyHP_Current; // 敵人血量
     public int EnemyUP_Current; // 敵人生命
     public float EnemyInner_Current; //敵人內傷
@@ -13,6 +14,7 @@ public class DamageControl : MonoBehaviour
     public float PlayerHP_Current; // 玩家血量
     public int PlayerUP_Current; // 玩家生命
     public bool PlayerUP_Used; // 玩家是否使用過復活
+    public Text DieMsg; //屎的畫面
 
     // 條狀進度條
     public Image EHP;
@@ -29,14 +31,17 @@ public class DamageControl : MonoBehaviour
     private Sprite Inner1; // 生命值為一
     private Sprite Inner2; // 生命值為二
 
-    public void ReLife()
+    public void ReLife(string chose)
     {
-        if (Revive)
+        if (PlayerUP_Used == true) {
+            Revive.enabled = false;
+        }
+        if (chose =="R")
         {
             PlayerUP_Current -= 1;
             PlayerUP_Used = true;
         }
-        else if (Dead)
+        else if (chose == "D")
         {
             PlayerAliveOrNot = false; //死透
         }
@@ -45,6 +50,7 @@ public class DamageControl : MonoBehaviour
     void Start()
     {
         PlayerAliveOrNot = true;
+        PlayerisDead = false;
         EnemyHP_Current = 100.0f;
         EnemyUP_Current = 2;
         EnemyInner_Current = 0.0f;
@@ -103,7 +109,7 @@ public class DamageControl : MonoBehaviour
         {
             if (PlayerUP_Used == false)
             {
-                ReLife();
+                PlayerisDead = true;
             }
             else // 死透了 遊戲結束
             {
