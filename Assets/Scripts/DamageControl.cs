@@ -33,8 +33,13 @@ public class DamageControl : MonoBehaviour
 
     public void ReLife(string chose)
     {
-        if (PlayerUP_Used == true) {
+        if (PlayerUP_Used == true)
+        {
             Revive.enabled = false;
+        }
+        else
+        {
+            Revive.enabled = true;
         }
         if (chose =="R")
         {
