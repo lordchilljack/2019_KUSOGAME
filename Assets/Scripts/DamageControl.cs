@@ -50,6 +50,7 @@ public class DamageControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
         PlayerAliveOrNot = true;
         PlayerisDead = false;
         EnemyHP_Current = 100.0f;
@@ -63,7 +64,7 @@ public class DamageControl : MonoBehaviour
         EHP.fillAmount = EnemyHP_Current/100.0f;
         EI.fillAmount = EnemyInner_Current/100.0f;
         PHP.fillAmount = PlayerHP_Current/100.0f;
-
+        */
         Inner1 = Resources.Load<Sprite>("Inner1");
         Inner2 = Resources.Load<Sprite>("Inner2");
     }
@@ -78,6 +79,7 @@ public class DamageControl : MonoBehaviour
         // 敵人血量計算
         if (EnemyHP_Current <= 0.0f && Input.GetKey(KeyCode.Space))
         {
+            EnemyHP_Current = 0;
             if(EnemyUP_Current > 0)
             {
                 
@@ -90,6 +92,7 @@ public class DamageControl : MonoBehaviour
         // 敵人內傷計算
         if(EnemyInner_Current >= 100.0f)
         {
+            EnemyInner_Current = 100;
             if (Input.GetKey(KeyCode.Space)) //斬殺
             {
                 if (EnemyUP_Current > 0)
@@ -111,6 +114,7 @@ public class DamageControl : MonoBehaviour
         //玩家血量計算
         if (PlayerHP_Current <= 0.0f)
         {
+            PlayerHP_Current = 0;
             if (PlayerUP_Used == false)
             {
                 PlayerisDead = true;
