@@ -16,14 +16,17 @@ public class DamageControl : MonoBehaviour
     public int PlayerUP_Current; // 玩家生命
     public bool PlayerUP_Used; // 玩家是否使用過復活
     public Text DieMsg; //屎的畫面
+    private byte DieMsgTrans = 0;
 
     // 條狀進度條
     public Image EHP;
     public Image EI;
     public Image PHP;
     // 圓點貼圖
-    public Image EUP;
-    public Image PUP;
+    public Image EUP1;
+    public Image EUP2;
+    public Image PUP1;
+    public Image PUP2;
 
     public Button Revive; //復活
     public Button Dead; //就此屎去
@@ -48,12 +51,14 @@ public class DamageControl : MonoBehaviour
             DataCtrl.Data.PlayerUP_Used = true;
             DataCtrl.Data.PlayerHP_Current = 100;
             DataCtrl.Data.PlayerisHPEmtpy = false;
+            DieMsgTrans = 0;
         }
         else if (chose == "D")
         {
             DataCtrl.Data.PlayerAliveOrNot = false; //死透
+            DieMsgTrans = 0;
             //結束遊戲 回主畫面
-            //SceneManager.LoadScene();
+            SceneManager.LoadScene(0);
         }
         DieMsg.transform.localScale = new Vector3(0, 0, 0);
         Dead.transform.localScale = new Vector3(0, 0, 0);
@@ -89,9 +94,6 @@ public class DamageControl : MonoBehaviour
         EHP.fillAmount = EnemyHP_Current/100.0f;
         EI.fillAmount = EnemyInner_Current/100.0f;
         PHP.fillAmount = PlayerHP_Current/100.0f;
-        
-        Inner1 = Resources.Load<Sprite>("Inner1");
-        Inner2 = Resources.Load<Sprite>("Inner2");
     }
 
     // Update is called once per frame
@@ -101,9 +103,22 @@ public class DamageControl : MonoBehaviour
         EHP.fillAmount = EnemyHP_Current / 100.0f;
         EI.fillAmount = EnemyInner_Current / 100.0f;
         PHP.fillAmount = PlayerHP_Current / 100.0f;
-        
+        if (DataCtrl.Data.EnemyUP_Current == 1)
+        {
+            EUP1.transform.localScale = new Vector3(0, 0, 0);
+        }
+        else if (DataCtrl.Data.EnemyUP_Current == 0)
+        {
+            EUP2.transform.localScale = new Vector3(0, 0, 0);
+        }
+        if (DataCtrl.Data.PlayerUP_Current == 1)
+        {
+            PUP1.transform.localScale = new Vector3(0, 0, 0);
+            PUP2.color = new Color(0.0f,0.0f,0.0f);
+        }
+
         // 敵人內傷計算
-        if(DataCtrl.Data.EnemyInner_Current >= 100.0f)
+        if (DataCtrl.Data.EnemyInner_Current >= 100.0f)
         {
             DataCtrl.Data.EnemyInner_Current = 100;
         }
@@ -112,6 +127,7 @@ public class DamageControl : MonoBehaviour
         if (DataCtrl.Data.PlayerHP_Current <= 0.0f)
         {
             DataCtrl.Data.PlayerHP_Current = 0;
+            DieMsg.color = new Color32(180,0,0, DieMsgTrans);
             if (DataCtrl.Data.PlayerUP_Used == false)
             {
                 DataCtrl.Data.PlayerisHPEmtpy = true;
@@ -122,7 +138,14 @@ public class DamageControl : MonoBehaviour
             else // 死透了 遊戲結束
             {
                 DataCtrl.Data.PlayerAliveOrNot = false;
+                DieMsg.transform.localScale = new Vector3(1, 1, 1);
+                Dead.transform.localScale = new Vector3(1, 1, 1);
             }
+            if (DieMsgTrans < 245)
+            {
+                DieMsgTrans+=10;
+            }
+            
         }
         debugview();
     }
