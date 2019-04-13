@@ -57,94 +57,51 @@ public class Battle : MonoBehaviour
                 break;
         }
     }
-
+    void PlayerAction()
+    {
+        if (DataCtrl.Data.PlayerisActble)
+        {
+            if (Input.GetKeyUp(KeyCode.Keypad8) || Input.GetKeyUp(KeyCode.W))
+            {
+                //播放相對動畫
+                PlayerAct = 0;
+            }
+            else if (Input.GetKeyUp(KeyCode.Keypad5) || Input.GetKeyUp(KeyCode.S))
+            {
+                //播放相對動畫
+                PlayerAct = 1;
+            }
+            else if (Input.GetKeyUp(KeyCode.Keypad2) || Input.GetKeyUp(KeyCode.X))
+            {
+                //播放相對動畫
+                PlayerAct = 2;
+            }
+            EnemyAct = Random.Range(0, 2);
+            DataCtrl.Data.PlayerisActble = false;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-        BaatlePhase = 0;
+        BaatlePhase = DataCtrl.Data.StageState;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (BaatlePhase) {
-            case 0:
-                if (SneakHit_Count < SneakHit_Limit) {
-                    if (Input.GetKeyUp(KeyCode.Keypad8) || Input.GetKeyUp(KeyCode.W)) {
-                        //播放相對動畫
-                        PlayerAct = 0;
-                        EnemyAct = 1;
-                    } else if (Input.GetKeyUp(KeyCode.Keypad5) || Input.GetKeyUp(KeyCode.S)) {
-                        //播放相對動畫
-                        PlayerAct = 1;
-                        EnemyAct = 2;
-                    }
-                    else if (Input.GetKeyUp(KeyCode.Keypad2) || Input.GetKeyUp(KeyCode.X)) {
-                        //播放相對動畫
-                        PlayerAct = 2;
-                        EnemyAct = 0;
-                    }
-                    SneakHit_Count += 1;
-                }
-                else {
-                    if (Input.GetKeyUp(KeyCode.Keypad8) || Input.GetKeyUp(KeyCode.W))
-                    {
-                        //播放相對動畫
-                        PlayerAct = 0;
-                        EnemyAct = 2;
-                    }
-                    else if (Input.GetKeyUp(KeyCode.Keypad5) || Input.GetKeyUp(KeyCode.S))
-                    {
-                        //播放相對動畫
-                        PlayerAct = 1;
-                        EnemyAct = 0;
-                    }
-                    else if (Input.GetKeyUp(KeyCode.Keypad2) || Input.GetKeyUp(KeyCode.X))
-                    {
-                        //播放相對動畫
-                        PlayerAct = 2;
-                        EnemyAct = 1;
-                    }
-                    SneakHit_Count = 0;
-                }
-                BaatlePhase = 2;
-                break;
-            case 1:
-                if (Input.GetKeyUp(KeyCode.Keypad8) || Input.GetKeyUp(KeyCode.W))
-                {
-                    //播放相對動畫
-                    PlayerAct = 0;
-                }
-                else if (Input.GetKeyUp(KeyCode.Keypad5) || Input.GetKeyUp(KeyCode.S))
-                {
-                    //播放相對動畫
-                    PlayerAct = 1;
-                }
-                else if (Input.GetKeyUp(KeyCode.Keypad2) || Input.GetKeyUp(KeyCode.X))
-                {
-                    //播放相對動畫
-                    PlayerAct = 2;
-                }
-                EnemyAct = Random.Range(0, 2);
-                BaatlePhase = 2;
-                break;
-            case 2:
-                if (AttackTimer < AttackLimtTime)
-                {
-                    AttackTimer += Time.deltaTime;
-                    break;
-                }
-                else
-                {
-                    RPSfunction(PlayerAct, EnemyAct);
-                    PlayerAct = 3;
-                    EnemyAct = 3;
-                    BaatlePhase = 0;
-                    AttackTimer = 0;
-                }
-                break;
-            default:
-                break;
+        PlayerAction();
+        if (DataCtrl.Data.PlayerisActble == false) {
+            if (AttackTimer < DataCtrl.Data.PlayerACt_TimeLimt)
+            {
+                AttackTimer += Time.deltaTime;
+            }
+            else {
+                AttackTimer = 0;
+                DataCtrl.Data.PlayerisActble = true;
+            }
         }
+        RPSfunction(PlayerAct,EnemyAct);
+        PlayerAct = 3;
+        EnemyAct = 3;
     }
 }
