@@ -4,33 +4,12 @@ using UnityEngine;
 
 public class MainGame : MonoBehaviour
 {
-    public float TimeCurrent = 0.0f;
-    public float TimeLimit = 30.0f;
-    public int ClothesTotal = 21;
-    public int Clothsleft = 21;
+    public float EnemyHP_Current;
+    public int EnemyUP_Current;
 
-    public int ClothRange() {
-
-    }
-
-    //
-    // 顯示主題、提示
-    //
-    void Question() {
-        switch () {
-
-
-        }
-    }
-
-    //
-    // 穿衣服
-    //
-    public void Wear( GameObject Cloth) {
-        if (Cloth) {
-            
-        }
-    }
+    public float PlayerHP_Current;
+    public int PlayerUP_Current;
+    public bool PlayerUP_Used;
 
     // Wake is called when the scence is loaded
     void Wake() {
