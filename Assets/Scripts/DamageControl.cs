@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class DamageControl : MonoBehaviour
 {
     public bool PlayerAliveOrNot;
-    public bool PlayerisDead;
+    public bool PlayerisHPEmpty;
     public float EnemyHP_Current; // 敵人血量
     public int EnemyUP_Current; // 敵人生命
     public float EnemyInner_Current; //敵人內傷
@@ -68,7 +68,7 @@ public class DamageControl : MonoBehaviour
     private void debugview()
     {
         PlayerAliveOrNot = DataCtrl.Data.PlayerAliveOrNot;
-        PlayerisDead = DataCtrl.Data.PlayerisHPEmtpy;
+        PlayerisHPEmpty = DataCtrl.Data.PlayerisHPEmtpy;
         EnemyHP_Current = DataCtrl.Data.EnemyHP_Current;
         EnemyUP_Current = DataCtrl.Data.EnemyUP_Current;
         EnemyInner_Current = DataCtrl.Data.EnemyInner_Current;
@@ -82,7 +82,7 @@ public class DamageControl : MonoBehaviour
     {
         
         PlayerAliveOrNot = DataCtrl.Data.PlayerAliveOrNot;
-        PlayerisDead = DataCtrl.Data.PlayerisHPEmtpy;
+        PlayerisHPEmpty = DataCtrl.Data.PlayerisHPEmtpy;
         EnemyHP_Current = DataCtrl.Data.EnemyHP_Current;
         EnemyUP_Current = DataCtrl.Data.EnemyUP_Current;
         EnemyInner_Current = DataCtrl.Data.EnemyInner_Current;
@@ -127,10 +127,10 @@ public class DamageControl : MonoBehaviour
         if (DataCtrl.Data.PlayerHP_Current <= 0.0f)
         {
             DataCtrl.Data.PlayerHP_Current = 0;
+            DataCtrl.Data.PlayerisHPEmtpy = true;
             DieMsg.color = new Color32(180,0,0, DieMsgTrans);
             if (DataCtrl.Data.PlayerUP_Used == false)
             {
-                DataCtrl.Data.PlayerisHPEmtpy = true;
                 DieMsg.transform.localScale = new Vector3(1, 1, 1);
                 Dead.transform.localScale = new Vector3(1, 1, 1);
                 Revive.transform.localScale = new Vector3(1, 1, 1);

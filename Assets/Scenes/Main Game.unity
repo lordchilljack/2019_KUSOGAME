@@ -1443,6 +1443,8 @@ MonoBehaviour:
   PlayerAct: 3
   EnemyAct: 3
   PlayerActable: 0
+  Danger: {fileID: 1405739354}
+  DangerTrans: 0
 --- !u!4 &1486955914
 Transform:
   m_ObjectHideFlags: 0
