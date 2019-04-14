@@ -7,6 +7,7 @@ public class StageSetup : MonoBehaviour
 {
     public GameObject BackGround;
     public GameObject Boss;
+    public Text SongName;
     public Text BossName;
     public int ChozenSeed;
     // Start is called before the first frame update
@@ -42,6 +43,26 @@ public class StageSetup : MonoBehaviour
             case 2:
                 BossName.text = "總裁 黑洞醬";
                 break;
+        }
+        ChozenSeed = Random.Range(0, 3);
+        switch (ChozenSeed)
+        {
+            case 0:
+                this.GetComponent<AudioSource > ().clip = (AudioClip)Resources.Load("Asura");
+                SongName.text = "♪Asura by ilodolly";
+                this.GetComponent<AudioSource>().Play();
+                break;
+            case 1:
+                this.GetComponent<AudioSource>().clip = (AudioClip)Resources.Load("BibidoBlue");
+                SongName.text = "♪ビビッドブルー  by かずち";
+                this.GetComponent<AudioSource>().Play();
+                break;
+            case 2:
+                this.GetComponent<AudioSource>().clip = (AudioClip)Resources.Load("Bloodsucker");
+                SongName.text = "♪Bloodsucker by MFP【Marron Fields Production】";
+                this.GetComponent<AudioSource>().Play();
+                break;
+
         }
     }
 

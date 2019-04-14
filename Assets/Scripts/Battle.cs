@@ -111,6 +111,7 @@ void ShinobeEx()
             else
             {
                 //過關
+                DataCtrl.Data = null;
                 SceneManager.LoadScene(3);
             }
         }

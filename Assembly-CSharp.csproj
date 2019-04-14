@@ -65,7 +65,6 @@
     <Compile Include="Assets\Scripts\DataCtrl.cs" />
     <Compile Include="Assets\Scripts\GameDataManager.cs" />
     <Compile Include="Assets\Scripts\Loading.cs" />
-    <Compile Include="Assets\Scripts\MainGame.cs" />
     <Compile Include="Assets\Scripts\StageSetup.cs" />
     <Compile Include="Assets\Scripts\TitleCtrl.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

@@ -58,6 +58,7 @@ public class DamageControl : MonoBehaviour
             DataCtrl.Data.PlayerAliveOrNot = false; //死透
             DieMsgTrans = 0;
             //結束遊戲 回主畫面
+            DataCtrl.Data = null;
             SceneManager.LoadScene(0);
         }
         DieMsg.transform.localScale = new Vector3(0, 0, 0);
