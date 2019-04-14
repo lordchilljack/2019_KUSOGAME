@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonTrans: 0
-  Button1: {fileID: 0}
+  Button1: {fileID: 1206585592}
   Button2: {fileID: 1206585592}
 --- !u!82 &291098071
 AudioSource:
