@@ -30,7 +30,7 @@ public class StageSetup : MonoBehaviour
                 BackGround.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("BG_04");
                 break;
         }
-        ChozenSeed = Random.Range(0,3);
+        ChozenSeed = Random.Range(0,1);//目前只有劍聖0 其他BOSS製作中
         switch (ChozenSeed)
         {
 

@@ -16,7 +16,7 @@ public class GameDataManager
     public int PlayerAct = 3; //玩家攻擊 0上段 1中段 2下段 3待機
     public int EnemyAct = 3; //敵人攻擊 0上段 1中段 2下段 3待機
 
-    public float PlayerAct_TimeLimt = 0.2f;//玩家指令不接受時間
+    public float PlayerAct_TimeLimt = 0.4f;//玩家指令不接受時間
     public int StageState = 0; //關卡狀況 0:普通 1:可忍殺 2:玩家死亡 3:換敵人
     public bool PlayerisActble = true;//玩家可以進行攻擊
 
