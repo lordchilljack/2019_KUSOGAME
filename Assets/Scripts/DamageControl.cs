@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DamageControl : MonoBehaviour
 {
@@ -43,33 +44,52 @@ public class DamageControl : MonoBehaviour
         }
         if (chose =="R")
         {
-            PlayerUP_Current -= 1;
-            PlayerUP_Used = true;
-            PlayerHP_Current = 100;
+            DataCtrl.Data.PlayerUP_Current -= 1;
+            DataCtrl.Data.PlayerUP_Used = true;
+            DataCtrl.Data.PlayerHP_Current = 100;
+            DataCtrl.Data.PlayerisHPEmtpy = false;
         }
         else if (chose == "D")
         {
-            PlayerAliveOrNot = false; //死透
+            DataCtrl.Data.PlayerAliveOrNot = false; //死透
+            //結束遊戲 回主畫面
+            //SceneManager.LoadScene();
         }
+        DieMsg.transform.localScale = new Vector3(0, 0, 0);
+        Dead.transform.localScale = new Vector3(0, 0, 0);
+        Revive.transform.localScale = new Vector3(0, 0, 0);
+    }
+
+    private void debugview()
+    {
+        PlayerAliveOrNot = DataCtrl.Data.PlayerAliveOrNot;
+        PlayerisDead = DataCtrl.Data.PlayerisHPEmtpy;
+        EnemyHP_Current = DataCtrl.Data.EnemyHP_Current;
+        EnemyUP_Current = DataCtrl.Data.EnemyUP_Current;
+        EnemyInner_Current = DataCtrl.Data.EnemyInner_Current;
+
+        PlayerHP_Current = DataCtrl.Data.PlayerHP_Current;
+        PlayerUP_Current = DataCtrl.Data.PlayerUP_Current;
+        PlayerUP_Used = DataCtrl.Data.PlayerUP_Used;
     }
     // Start is called before the first frame update
     void Start()
     {
-        /*
-        PlayerAliveOrNot = true;
-        PlayerisDead = false;
-        EnemyHP_Current = 100.0f;
-        EnemyUP_Current = 2;
-        EnemyInner_Current = 0.0f;
+        
+        PlayerAliveOrNot = DataCtrl.Data.PlayerAliveOrNot;
+        PlayerisDead = DataCtrl.Data.PlayerisHPEmtpy;
+        EnemyHP_Current = DataCtrl.Data.EnemyHP_Current;
+        EnemyUP_Current = DataCtrl.Data.EnemyUP_Current;
+        EnemyInner_Current = DataCtrl.Data.EnemyInner_Current;
 
-        PlayerHP_Current = 100.0f;
-        PlayerUP_Current = 2;
-        PlayerUP_Used = false;
+        PlayerHP_Current = DataCtrl.Data.PlayerHP_Current;
+        PlayerUP_Current = DataCtrl.Data.PlayerUP_Current;
+        PlayerUP_Used = DataCtrl.Data.PlayerUP_Used;
 
         EHP.fillAmount = EnemyHP_Current/100.0f;
         EI.fillAmount = EnemyInner_Current/100.0f;
         PHP.fillAmount = PlayerHP_Current/100.0f;
-        */
+        
         Inner1 = Resources.Load<Sprite>("Inner1");
         Inner2 = Resources.Load<Sprite>("Inner2");
     }
@@ -81,53 +101,29 @@ public class DamageControl : MonoBehaviour
         EHP.fillAmount = EnemyHP_Current / 100.0f;
         EI.fillAmount = EnemyInner_Current / 100.0f;
         PHP.fillAmount = PlayerHP_Current / 100.0f;
-        // 敵人血量計算
-        if (EnemyHP_Current <= 0.0f && Input.GetKey(KeyCode.Space))
-        {
-            EnemyHP_Current = 0;
-            if(EnemyUP_Current > 0)
-            {
-                
-            }
-            else
-            {
-                // 王死去 下一隻
-            }   
-        }
+        
         // 敵人內傷計算
-        if(EnemyInner_Current >= 100.0f)
+        if(DataCtrl.Data.EnemyInner_Current >= 100.0f)
         {
-            EnemyInner_Current = 100;
-            if (Input.GetKey(KeyCode.Space)) //斬殺
-            {
-                if (EnemyUP_Current > 0)
-                {
-                    EnemyUP_Current -= 1;
-                    EnemyHP_Current = 100.0f;
-                }
-                else
-                {
-                    // 王死去 下一隻
-                }
-            }
-            else
-            {
-                // 繼續讓玩家砍王
-            }
+            DataCtrl.Data.EnemyInner_Current = 100;
         }
 
         //玩家血量計算
-        if (PlayerHP_Current <= 0.0f)
+        if (DataCtrl.Data.PlayerHP_Current <= 0.0f)
         {
-            PlayerHP_Current = 0;
-            if (PlayerUP_Used == false)
+            DataCtrl.Data.PlayerHP_Current = 0;
+            if (DataCtrl.Data.PlayerUP_Used == false)
             {
-                PlayerisDead = true;
+                DataCtrl.Data.PlayerisHPEmtpy = true;
+                DieMsg.transform.localScale = new Vector3(1, 1, 1);
+                Dead.transform.localScale = new Vector3(1, 1, 1);
+                Revive.transform.localScale = new Vector3(1, 1, 1);
             }
             else // 死透了 遊戲結束
             {
-                PlayerAliveOrNot = false;
+                DataCtrl.Data.PlayerAliveOrNot = false;
             }
         }
+        debugview();
     }
 }

@@ -660,7 +660,7 @@ RectTransform:
   m_GameObject: {fileID: 725516383}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1992662315}
   m_Father: {fileID: 35741375}
@@ -1426,16 +1426,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ece33c96fb1bd48af12f72064a33cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaatlePhase: 0
+  BattlePhase: 0
   EnemyHP_Current: 0
   EnemyInner_Current: 0
   PlayerHP_Current: 0
   AttackTimer: 0
-  AttackLimtTime: 3
-  SneakHit_Count: 0
-  SneakHit_Limit: 2
+  AttackLimtTime: 1
+  IdleTimer: 0
+  IdleLimtTime: 5
+  ChanceTimer: 0
+  ChanceLimitTime: 3
   PlayerAct: 3
   EnemyAct: 3
+  PlayerActable: 0
 --- !u!4 &1486955914
 Transform:
   m_ObjectHideFlags: 0
@@ -1618,7 +1621,7 @@ RectTransform:
   m_GameObject: {fileID: 1614131634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1246277373}
   m_Father: {fileID: 35741375}
@@ -2264,7 +2267,7 @@ RectTransform:
   m_GameObject: {fileID: 2100884492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 35741375}
   m_RootOrder: 11
