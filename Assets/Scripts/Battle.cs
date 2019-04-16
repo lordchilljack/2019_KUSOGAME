@@ -25,8 +25,11 @@ public int EnemyAct=3;
 public bool PlayerActable;
 public Text Danger;
 public byte DangerTrans;
-  
-private void RPSfunction(int playercmd, int enemyattack) {
+public Text SinobeEXable;
+public byte SinobeEXTrans;
+
+
+    private void RPSfunction(int playercmd, int enemyattack) {
     //
     // 上>中>下>上 
     // 上 0 中 1 下 2
@@ -41,41 +44,47 @@ private void RPSfunction(int playercmd, int enemyattack) {
         
         case 0:
             if (enemyattack == 1) {
+                EnemyAni.SetTrigger("EMA");
                 DataCtrl.Data.EnemyHP_Current -= 5;
             }
             if (enemyattack == 2)
             {
+                EnemyAni.SetTrigger("EBA");
                 DataCtrl.Data.PlayerHP_Current -= 30;
             }
-            EnemyAni.SetTrigger("EA");
+            
             EnemyAni.GetComponentInParent<AudioSource>().clip = (AudioClip)Resources.Load("SE_kick");
             EnemyAni.GetComponentInParent<AudioSource>().Play();
             break;
         case 1:
             if (enemyattack == 2)
             {
+                EnemyAni.SetTrigger("EBA");
                 DataCtrl.Data.EnemyHP_Current -= 5;
             }
             if (enemyattack == 0)
             {
+                EnemyAni.SetTrigger("ETA");
                 DataCtrl.Data.PlayerHP_Current -= 30;
             }
             EnemyAni.GetComponentInParent<AudioSource>().clip = (AudioClip)Resources.Load("SE_Punch");
             EnemyAni.GetComponentInParent<AudioSource>().Play();
-            EnemyAni.SetTrigger("EA");
+            
             break;
         case 2:
             if (enemyattack == 0)
             {
+                EnemyAni.SetTrigger("ETA");
                 DataCtrl.Data.EnemyHP_Current -= 5;
             }
             if (enemyattack == 1)
             {
+                EnemyAni.SetTrigger("EMA");
                 DataCtrl.Data.PlayerHP_Current -= 30;
             }
             EnemyAni.GetComponentInParent<AudioSource>().clip = (AudioClip)Resources.Load("SE_slap");
             EnemyAni.GetComponentInParent<AudioSource>().Play();
-            EnemyAni.SetTrigger("EA");
+            
             break;
     }
         
@@ -115,10 +124,12 @@ void PlayerAction()
 }
 void ShinobeEx()
 {
-    if (DataCtrl.Data.EnemyInner_Current >= 100.0f)
+    if (DataCtrl.Data.EnemyInner_Current >= 100.0f || DataCtrl.Data.EnemyHP_Current <= 0.0f)
     {
         if (Input.GetKey(KeyCode.Space)) //斬殺
         {
+            SinobeEXTrans = 0;
+            SinobeEXable.color = new Color32(180, 0, 0, SinobeEXTrans);
             if (DataCtrl.Data.EnemyUP_Current > 0)
             {
                 //播放爆炸動畫和音效
@@ -167,13 +178,13 @@ void EnemyAction()
             ShinobeEx();
             if (PlayerAct == 3)
             {
+                if (this.GetComponent<AudioSource>().isPlaying == false)
+                {
+                    this.GetComponent<AudioSource>().Play();
+                }
                 IdleTimer += Time.deltaTime;
                 if (IdleTimer >= IdleLimtTime)
                 {
-                    if (this.GetComponent<AudioSource>().isPlaying == false)
-                    {
-                        this.GetComponent<AudioSource>().Play();
-                    }
                     ChanceTimer += Time.deltaTime;
                     //玩家頭上冒"爆"字
                     if (DangerTrans <= 205)
@@ -184,15 +195,15 @@ void EnemyAction()
                     if (DangerTrans ==100)
                     {
                         Danger.GetComponent<AudioSource>().Play();
+                        EnemyAni.SetTrigger("ESP0");
                     }
                     ChanceTimer += Time.deltaTime;
                     if (ChanceTimer >= ChanceLimitTime && DataCtrl.Data.EnemyHP_Current>0)
                     {
-                        EnemyAni.SetTrigger("EA");
+                        EnemyAni.SetTrigger("ESP1");
                         DangerTrans = 0;
                         Danger.color = new Color32(180, 0, 0, DangerTrans);
                         //敵方使用半血攻擊
-                        EnemyAction();
                         DataCtrl.Data.PlayerHP_Current -= 50;
                         this.GetComponent<AudioSource>().Stop();
                         IdleTimer = 0;
@@ -203,6 +214,7 @@ void EnemyAction()
             else
             {
                 this.GetComponent<AudioSource>().Stop();
+                EnemyAni.SetTrigger("Cancel");
                 IdleTimer = 0;
                 ChanceTimer = 0;
             }
@@ -220,6 +232,18 @@ void EnemyAction()
             }
         }
         RPSfunction(PlayerAct, EnemyAct);
+        if (DataCtrl.Data.EnemyInner_Current >= 100.0f || DataCtrl.Data.EnemyHP_Current <= 0.0f)
+        {
+            if (SinobeEXTrans < 205)
+            {
+                SinobeEXTrans +=50;
+            }
+            if(SinobeEXTrans == 150)
+            {
+                SinobeEXable.GetComponent<AudioSource>().Play();
+            }
+            SinobeEXable.color = new Color32(180, 0, 0, SinobeEXTrans);
+        }
         PlayerAct = 3;
         EnemyAct = 3;
         PlayerActable = DataCtrl.Data.PlayerisActble;
